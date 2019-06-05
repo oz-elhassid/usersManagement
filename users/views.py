@@ -1,11 +1,9 @@
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm
-from django.template import loader, RequestContext
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import UpdateView
+
 import users.forms
 
 
@@ -37,3 +35,16 @@ def update_profile(request):
     args['form'] = form
     return render(request, 'registration/user_update.html', args)
     # return render_to_response('registration/user_update.html', context=RequestContext(request))
+
+
+def register(request):
+    args = {}
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse(welcome))
+    else:
+        form = UserCreationForm()
+    args['form'] = form
+    return render(request, 'registration/register.html')
