@@ -15,6 +15,10 @@ def welcome(request):
     return render(request, 'registration/welcome.html')
 
 
+def logout(request):
+    return render(request, 'registration/logged_out.html')
+
+
 def update_profile(request):
     args = {}
 

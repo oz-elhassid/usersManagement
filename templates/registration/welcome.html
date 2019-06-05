@@ -1,5 +1,5 @@
-{#{% extends "base.html" %}#}
-{% extends "admin/base_site.html" %}
+{% extends "base.html" %}
+{#{% extends "admin/base_site.html" %}#}
 {% block content %}
     <p>welcome back, {{ user.username }}.</p>
     {% if request.user.is_superuser %}

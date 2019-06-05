@@ -1,5 +1,5 @@
-{#{% extends "base.html" %}#}
-{% extends "admin/login.html" %}
+{% extends "base.html" %}
+{#{% extends "admin/login.html" %}#}
 {% block content %}
     {% if request.user.is_authenticated %}
         <p><a href="{% url 'welcome' %}">already logged in. click here.</a></p>
