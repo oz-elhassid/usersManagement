@@ -27,11 +27,11 @@ and through the mysql shell create a user to work with:
 ```
 sudo mysql
 CREATE USER 'oz'@'localhost' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON * . * TO 'oz'@'localhost';
 ```
-create a database to work with, and quith the mysql shell:
+create a database to work with, grant permissions and quit the mysql shell:
 ```
 CREATE DATABASE mydatabase;
+GRANT ALL PRIVILEGES ON mydatabase.* TO 'oz'@'localhost';
 quit
 ```
 migrate changes to the database:
