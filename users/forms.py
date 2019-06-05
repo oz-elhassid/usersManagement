@@ -1,17 +1,26 @@
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserChangeForm, ReadOnlyPasswordHashField, UsernameField
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
 
-class CustomUserChangeForm(UserChangeForm):
+class CustomUserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name')
+        field_classes = {'username': UsernameField}
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        password = self.fields.get('password')
+        if password:
+            password.help_text = password.help_text.format('../password/')
+        user_permissions = self.fields.get('user_permissions')
+        if user_permissions:
+            user_permissions.queryset = user_permissions.queryset.select_related('content_type')
 
-# class CustomUserChangeForm(UserChangeForm):
-#     def __init__(self, *args, **kwargs):
-#         super(CustomUserChangeForm, self).__init__(*args, **kwargs)
-#         if self.instance and self.instance.pk:
-#             # Since the pk is set this is not a new instance
-#             self.fields['username'] = self.instance.username
-#             # self.fields['username'].widgets.attrs['readonly'] = True
+    def clean_password(self):
+        # Regardless of what the user provides, return the initial value.
+        # This is done here, rather than on the field, because the
+        # field does not have access to the initial value
+        return self.initial.get('password')

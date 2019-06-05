@@ -29,8 +29,8 @@ def update_profile(request):
         form.actual_user = request.user
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('update_profile_success'))
-
+            # return HttpResponseRedirect(reverse('update_profile_success'))
+            return HttpResponseRedirect(reverse(welcome))
     else:
         form = users.forms.CustomUserChangeForm(instance=request.user)
 
