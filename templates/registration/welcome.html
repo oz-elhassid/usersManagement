@@ -1,0 +1,9 @@
+{#{% extends "base.html" %}#}
+{% extends "admin/base_site.html" %}
+{% block content %}
+    <p>welcome back, {{ user.username }}.</p>
+    {% if request.user.is_superuser %}
+        <a href="{% url 'admin:index' %}">admin page</a>
+    {% endif %}
+    <p><a href="{% url 'logout' %}">logout</a></p>
+{% endblock %}
