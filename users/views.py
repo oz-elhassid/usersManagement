@@ -34,7 +34,6 @@ def update_profile(request):
 
     args['form'] = form
     return render(request, 'registration/user_update.html', args)
-    # return render_to_response('registration/user_update.html', context=RequestContext(request))
 
 
 def register(request):
@@ -47,4 +46,4 @@ def register(request):
     else:
         form = UserCreationForm()
     args['form'] = form
-    return render(request, 'registration/register.html')
+    return render(request, 'registration/register.html', args)
