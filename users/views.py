@@ -14,10 +14,6 @@ def welcome(request):
     return render(request, 'registration/welcome.html')
 
 
-def logout(request):
-    return render(request, 'registration/logged_out.html')
-
-
 @login_required
 def update_profile(request):
     args = {}
