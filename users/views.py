@@ -9,8 +9,6 @@ import users.forms
 
 @login_required
 def welcome(request):
-    # return HttpResponse("welcome back %s" % request.user.get_username())
-    # return HttpResponse(loader.get_template("registration/welcome.html").render())
     return render(request, 'registration/welcome.html')
 
 
@@ -23,7 +21,6 @@ def update_profile(request):
         form.actual_user = request.user
         if form.is_valid():
             form.save()
-            # return HttpResponseRedirect(reverse('update_profile_success'))
             return HttpResponseRedirect(reverse(welcome))
     else:
         form = users.forms.CustomUserChangeForm(instance=request.user)
